@@ -1,7 +1,7 @@
 {
-  "name": "typescript-library",
+  "name": "typescript-bootstrap-project",
   "version": "1.0.0",
-  "description": "",
+  "description": "基于typescript快速启动的项目",
   "main": "index.js",
   "scripts": {
     "dev": "nodemon -r tsconfig-paths/register ./src/index.ts",
