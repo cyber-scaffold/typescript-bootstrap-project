@@ -1,0 +1,31 @@
+{
+  "name": "typescript-library",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon -r tsconfig-paths/register ./src/index.ts",
+    "build": "tsc && tsc-alias"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^18.14.5",
+    "nodemon": "^2.0.21",
+    "ts-node": "^10.9.1",
+    "tsc-alias": "^1.8.2",
+    "tsconfig-paths": "^3.14.2",
+    "typescript": "^4.9.5",
+    "typescript-transform-paths": "^3.4.6"
+  },
+  "dependencies": {
+    "amqplib": "^0.10.3",
+    "ioredis": "^5.3.1",
+    "jsonfile": "^6.1.0",
+    "mysql2": "^3.2.0",
+    "redis": "^4.6.5",
+    "winston": "^3.8.2",
+    "winston-daily-rotate-file": "^4.7.1"
+  }
+}
