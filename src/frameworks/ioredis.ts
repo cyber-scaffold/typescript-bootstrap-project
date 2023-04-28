@@ -1,8 +1,8 @@
 import Redis from "ioredis";
 
-let connection: any;
+export let redis_connection: any;
 
-async function createConnection() {
+export async function createRedisConnection() {
 
   try {
     const client = new Redis({
@@ -14,12 +14,12 @@ async function createConnection() {
       }
     });
 
-    client.on("connect", (redis_connection) => {
+    client.on("connect", () => {
       console.log("连接成功!");
-      connection = redis_connection;
+      redis_connection = client;
     });
 
   } catch (error) {
     throw error;
   };
-}; createConnection();
+};
