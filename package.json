@@ -7,6 +7,10 @@
     "dev": "nodemon -r tsconfig-paths/register ./src/index.ts",
     "build": "tsc && tsc-alias"
   },
+  "nodemonConfig": {
+    "stdin": false,
+    "stdout": false
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
