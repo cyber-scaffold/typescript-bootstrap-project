@@ -28,7 +28,9 @@
     "ioredis": "^5.3.1",
     "is-docker": "^2.2.1",
     "jsonfile": "^6.1.0",
+    "lodash": "^4.17.21",
     "mysql2": "^3.2.0",
+    "path-exists": "^4.0.0",
     "redis": "^4.6.5",
     "winston": "^3.8.2",
     "winston-daily-rotate-file": "^4.7.1"
