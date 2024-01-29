@@ -1,6 +1,6 @@
-import { promise_transaction } from "@/transactions/test-transaction";
+import { bootstrap } from "@/transactions/bootstrap";
 
 
 (async () => {
-  await promise_transaction();
+  await bootstrap();
 })();
