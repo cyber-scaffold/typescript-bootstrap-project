@@ -1,6 +1,6 @@
 import { bootstrap } from "@/transactions/bootstrap";
 
 
-(async () => {
+setImmediate(async () => {
   await bootstrap();
-})();
+});
