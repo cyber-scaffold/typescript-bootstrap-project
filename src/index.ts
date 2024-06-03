@@ -1,6 +1,9 @@
-import { bootstrap } from "@/transactions/bootstrap";
-
+import { bootstrapApplication } from "@/bootstrapApplication";
+import { bootstrapController } from "@/bootstrapController";
+import { bootstrapServices } from "@/bootstrapServices";
 
 setImmediate(async () => {
-  await bootstrap();
+  await bootstrapApplication();
+  await bootstrapServices();
+  await bootstrapController();
 });
