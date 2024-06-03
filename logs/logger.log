@@ -1,2 +1,0 @@
-2024-06-03 17:03:48 [process] [[31merror[39m] [31mRabbitMQ连接初始化发生错误,2s后准备重新连接[39m Cannot read properties of undefined (reading 'host')
-2024-06-03 17:03:48 [process] [[31merror[39m] [31mRabbitMQ连接初始化发生错误,2s后准备重新连接 TypeError: Cannot read properties of undefined (reading 'host')[39m
