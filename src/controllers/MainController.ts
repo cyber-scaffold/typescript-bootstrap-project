@@ -4,7 +4,7 @@ import { ApplicationConfigManager } from "@/commons/Application/ApplicationConfi
 import { RedisConnectManager } from "@/commons/Redis/RedisConnectManager";
 import { QueryBuilderManager } from "@/commons/MySQL/QueryBuilderManager";
 
-import { MainServiceFactory, MainServiceProvider } from "@/services/MainService";
+import { TransientService } from "@/services/TransientService";
 
 @injectable()
 export class MainController {
@@ -13,13 +13,12 @@ export class MainController {
     @inject(ApplicationConfigManager) private readonly applicationConfigManager: ApplicationConfigManager,
     @inject(RedisConnectManager) private readonly redisConnectManager: RedisConnectManager,
     @inject(QueryBuilderManager) private readonly queryBuilderManager: QueryBuilderManager,
-    @inject(MainServiceFactory) private readonly mainServiceProvider: MainServiceProvider
+    @inject(TransientService) private readonly transientService: TransientService
   ) { };
 
   /** 执行控制器 **/
   public async execute() {
-    const mainService = this.mainServiceProvider();
-    console.log(await mainService.execute());
+    await this.transientService.execute();
   };
 
 };

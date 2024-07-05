@@ -4,7 +4,6 @@ import { MainController } from "@/controllers/MainController";
 
 export async function bootstrapController() {
 
-  IOCContainer.bind(MainController).toSelf().inSingletonScope();
-  await IOCContainer.get(MainController).execute();
+  IOCContainer.bind(MainController).toSelf().inTransientScope();
 
 };
