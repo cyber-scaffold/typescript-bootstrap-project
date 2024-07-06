@@ -6,7 +6,7 @@ import { IOCContainer } from "@/commons/Application/IOCContainer";
 // import { QueryBuilderManager } from "@/commons/MySQL/QueryBuilderManager";
 
 import { SessionInfoService } from "@/services/SessionInfoService";
-import { TransientService } from "@/services/TransientService";
+import { TransientFactoryServiceFactory, TransientFactoryServiceProvider } from "@/services/TransientFactoryService";
 
 export async function executeMainController() {
   const requestScopeContainer = IOCContainer.createChild();
@@ -22,13 +22,15 @@ export class MainControllerProcess {
     // @inject(RedisConnectManager) private readonly redisConnectManager: RedisConnectManager,
     // @inject(QueryBuilderManager) private readonly queryBuilderManager: QueryBuilderManager,
     @inject(SessionInfoService) private readonly sessionInfoService: SessionInfoService,
-    @inject(TransientService) private readonly transientService: TransientService
+    @inject(TransientFactoryServiceFactory) private readonly transientFactoryServiceProvider: TransientFactoryServiceProvider
   ) { };
 
   /** 执行控制器 **/
   public async execute() {
-    console.log(await this.transientService.execute());
-    await this.sessionInfoService.getSessionInfo();
+    console.log("transient scope service run 1 time", await this.transientFactoryServiceProvider().execute());
+    console.log("transient scope service run 2 time", await this.transientFactoryServiceProvider().execute());
+    console.log("request scope service run 1 time", await this.sessionInfoService.getSessionInfo());
+    console.log("request scope service run 2 time", await this.sessionInfoService.getSessionInfo());
   };
 
 };
