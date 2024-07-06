@@ -1,15 +1,13 @@
-import { IOCContainer } from "@/commons/Application/IOCContainer";
-import { MainController } from "@/controllers/MainController";
+import { executeMainController } from "@/controllers/MainController";
 
 import { bootstrapApplication } from "@/bootstrapApplication";
-import { bootstrapController } from "@/bootstrapController";
+import { bootstrapControllers } from "@/bootstrapControllers";
 import { bootstrapServices } from "@/bootstrapServices";
 
 setImmediate(async () => {
   await bootstrapApplication();
   await bootstrapServices();
-  await bootstrapController();
+  await bootstrapControllers();
 
-  const mainController = IOCContainer.get(MainController);
-  await mainController.execute();
+  await executeMainController();
 });
