@@ -14,7 +14,9 @@ export class SessionInfoService {
 
   constructor(
     @inject(ApplicationConfigManager) private readonly applicationConfigManager: ApplicationConfigManager
-  ) { };
+  ) {
+    console.log("SessionInfoService实例化");
+  };
 
   public async getSessionInfo() {
     return this.id;

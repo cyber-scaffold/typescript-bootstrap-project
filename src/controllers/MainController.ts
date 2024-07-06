@@ -4,7 +4,7 @@ import { IOCContainer } from "@/commons/Application/IOCContainer";
 // import { ApplicationConfigManager } from "@/commons/Application/ApplicationConfigManager";
 // import { RedisConnectManager } from "@/commons/Redis/RedisConnectManager";
 // import { QueryBuilderManager } from "@/commons/MySQL/QueryBuilderManager";
-
+import { OtherService } from "@/services/OtherService";
 import { SessionInfoService } from "@/services/SessionInfoService";
 import { TransientFactoryServiceFactory, TransientFactoryServiceProvider } from "@/services/TransientFactoryService";
 
@@ -21,6 +21,7 @@ export class MainControllerProcess {
     // @inject(ApplicationConfigManager) private readonly applicationConfigManager: ApplicationConfigManager,
     // @inject(RedisConnectManager) private readonly redisConnectManager: RedisConnectManager,
     // @inject(QueryBuilderManager) private readonly queryBuilderManager: QueryBuilderManager,
+    @inject(OtherService) private readonly otherService: OtherService,
     @inject(SessionInfoService) private readonly sessionInfoService: SessionInfoService,
     @inject(TransientFactoryServiceFactory) private readonly transientFactoryServiceProvider: TransientFactoryServiceProvider
   ) { };
