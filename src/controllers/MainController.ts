@@ -6,6 +6,7 @@ import { IOCContainer } from "@/commons/Application/IOCContainer";
 // import { QueryBuilderManager } from "@/commons/MySQL/QueryBuilderManager";
 import { OtherService } from "@/services/OtherService";
 import { SessionInfoService } from "@/services/SessionInfoService";
+import { RequestFactoryServiceFactory, RequestFactoryServiceProvider } from "@/services/RequestFactoryService";
 import { TransientFactoryServiceFactory, TransientFactoryServiceProvider } from "@/services/TransientFactoryService";
 
 export async function executeMainController() {
@@ -23,13 +24,16 @@ export class MainControllerProcess {
     // @inject(QueryBuilderManager) private readonly queryBuilderManager: QueryBuilderManager,
     @inject(OtherService) private readonly otherService: OtherService,
     @inject(SessionInfoService) private readonly sessionInfoService: SessionInfoService,
+    @inject(RequestFactoryServiceFactory) private readonly requestFactoryServiceProvider: RequestFactoryServiceProvider,
     @inject(TransientFactoryServiceFactory) private readonly transientFactoryServiceProvider: TransientFactoryServiceProvider
   ) { };
 
   /** 执行控制器 **/
   public async execute() {
-    console.log("transient scope service run 1 time", await this.transientFactoryServiceProvider().execute());
-    console.log("transient scope service run 2 time", await this.transientFactoryServiceProvider().execute());
+    console.log("transient factory scope service run 1 time", await this.transientFactoryServiceProvider().execute());
+    console.log("transient factory scope service run 2 time", await this.transientFactoryServiceProvider().execute());
+    console.log("request factory scope service run 1 time", await this.requestFactoryServiceProvider().execute());
+    console.log("request factory scope service run 2 time", await this.requestFactoryServiceProvider().execute());
     console.log("request scope service run 1 time", await this.sessionInfoService.getSessionInfo());
     console.log("request scope service run 2 time", await this.sessionInfoService.getSessionInfo());
   };
