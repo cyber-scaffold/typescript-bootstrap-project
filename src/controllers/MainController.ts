@@ -9,12 +9,6 @@ import { SessionInfoService } from "@/services/SessionInfoService";
 import { RequestFactoryServiceFactory, RequestFactoryServiceProvider } from "@/services/RequestFactoryService";
 import { TransientFactoryServiceFactory, TransientFactoryServiceProvider } from "@/services/TransientFactoryService";
 
-export async function executeMainController() {
-  const requestScopeContainer = IOCContainer.createChild();
-  requestScopeContainer.bind(MainControllerProcess).toSelf().inSingletonScope();
-  await requestScopeContainer.get(MainControllerProcess).execute();
-};
-
 @injectable()
 export class MainControllerProcess {
 
@@ -39,3 +33,5 @@ export class MainControllerProcess {
   };
 
 };
+
+IOCContainer.bind(MainControllerProcess).toSelf().inSingletonScope();
