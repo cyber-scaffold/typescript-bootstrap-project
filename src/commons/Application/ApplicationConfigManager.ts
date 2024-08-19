@@ -5,11 +5,17 @@ import pathExists from "path-exists";
 import { readFile } from "jsonfile";
 import { injectable } from "inversify";
 
+import { IOCContainer } from "@/commons/Application/IOCContainer";
+
 @injectable()
 export class ApplicationConfigManager {
 
   /** 应用层内置的默认配置 **/
   private defaultConfig: any = {
+    docs: false,
+    server: {
+      port: 15200
+    },
     redis: {
       port: 6379,
       host: "0.0.0.0",
@@ -69,3 +75,5 @@ export class ApplicationConfigManager {
   };
 
 };
+
+IOCContainer.bind(ApplicationConfigManager).toSelf().inSingletonScope();

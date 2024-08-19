@@ -1,5 +1,6 @@
 import { injectable, inject } from "inversify";
 
+import { IOCContainer } from "@/commons/Application/IOCContainer";
 import { SessionInfoService } from "@/services/SessionInfoService";
 
 @injectable()
@@ -10,3 +11,5 @@ export class OtherService {
   ) { };
 
 };
+
+IOCContainer.bind(OtherService).toSelf().inRequestScope();

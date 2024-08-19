@@ -1,15 +1,47 @@
 import { IOCContainer } from "@/commons/Application/IOCContainer";
 
-import { bootstrapApplication } from "@/bootstrapApplication";
-import { bootstrapControllers } from "@/bootstrapControllers";
-import { bootstrapServices } from "@/bootstrapServices";
+import { ApplicationConfigManager } from "@/commons/Application/ApplicationConfigManager";
+import { LimitedRabbitmqProducer } from "@/commons/RabbitMQ/LimitedRabbitmqProducer";
+import { LimitedRabbitmqConsumer } from "@/commons/RabbitMQ/LimitedRabbitmqConsumer";
+import { MongooseConnectManager } from "@/commons/MongoDB/MongooseConnectManager";
+import { MySQLConnectManager } from "@/commons/MySQL/MySQLConnectManager";
+import { QueryBuilderManager } from "@/commons/MySQL/QueryBuilderManager";
+import { RedisConnectManager } from "@/commons/Redis/RedisConnectManager";
 
 import { MainControllerProcess } from "@/controllers/MainController";
 
 setImmediate(async () => {
-  await bootstrapApplication();
-  await bootstrapServices();
-  await bootstrapControllers();
+
+  /** 初始化应用配置 **/
+  await IOCContainer.get(ApplicationConfigManager).initialize();
+
+  /** 初始化生产者 **/
+  await IOCContainer.get(LimitedRabbitmqProducer).initialize({
+    exchangeName: "testExchange",
+    routerName: "testRouter",
+    queueName: "testQueue"
+  });
+  await IOCContainer.get(LimitedRabbitmqProducer).createQueueWithExchange();
+
+  /** 初始化消费者 **/
+  await IOCContainer.get(LimitedRabbitmqConsumer).initialize({
+    exchangeName: "testExchange",
+    routerName: "testRouter",
+    queueName: "testQueue"
+  });
+  await IOCContainer.get(LimitedRabbitmqConsumer).createChannelWithExchange();
+
+  /** 初始化MySQL **/
+  await IOCContainer.get(MongooseConnectManager).initialize();
+
+  /** 初始化MongoDB **/
+  await IOCContainer.get(MySQLConnectManager).initialize();
+
+  /** 初始化MySQL查询构建器 **/
+  await IOCContainer.get(QueryBuilderManager).initialize();
+
+  /** 初始化Redis **/
+  await IOCContainer.get(RedisConnectManager).initialize();
 
   await IOCContainer.get(MainControllerProcess).execute();
 });
