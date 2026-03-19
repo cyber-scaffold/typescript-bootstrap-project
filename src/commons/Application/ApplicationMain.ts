@@ -10,6 +10,7 @@ import { MySQLConnectManager } from "@/commons/MySQL/MySQLConnectManager";
 import { QueryBuilderManager } from "@/commons/MySQL/QueryBuilderManager";
 import { RedisConnectManager } from "@/commons/Redis/RedisConnectManager";
 
+
 @injectable()
 export class ApplicationMain {
 
@@ -62,10 +63,10 @@ export class ApplicationMain {
   public async bootstrap() {
     /** 初始化应用配置 **/
     await this.$ApplicationConfigManager.initialize();
-    await this.bootstrapMySQL();
-    await this.bootstrapMongoDB();
-    await this.bootstrapRedis();
-    await this.bootstrapRabbitMQ();
+    // await this.bootstrapMySQL();
+    // await this.bootstrapMongoDB();
+    // await this.bootstrapRedis();
+    // await this.bootstrapRabbitMQ();
   };
 
 };
