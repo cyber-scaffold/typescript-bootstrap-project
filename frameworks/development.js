@@ -4,6 +4,7 @@ const esbuild = require("esbuild");
 const nodemon = require("nodemon");
 const { green } = require("colors");
 const { promisify } = require("util");
+const { nodeExternalsPlugin } = require("esbuild-node-externals");
 
 setImmediate(async () => {
   await promisify(fs.rm)(path.resolve(process.cwd(), "./dist/"), { recursive: true, force: true });
@@ -13,7 +14,9 @@ setImmediate(async () => {
     format: "cjs",
     platform: "node",
     outdir: path.resolve(process.cwd(), "./dist/"),
-    external: ["knex"]
+    plugins: [nodeExternalsPlugin({
+      packagePath: path.resolve(process.cwd(), "./package.json")
+    })]
   });
   await context.rebuild();
   await context.watch();

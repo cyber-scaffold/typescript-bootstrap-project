@@ -1,5 +1,6 @@
 const path = require("path");
 const esbuild = require("esbuild");
+const { nodeExternalsPlugin } = require("esbuild-node-externals");
 
 setImmediate(async () => {
   await esbuild.build({
@@ -8,6 +9,8 @@ setImmediate(async () => {
     format: "cjs",
     platform: "node",
     outdir: path.resolve(process.cwd(), "./dist/"),
-    external: ["knex"]
+    plugins: [nodeExternalsPlugin({
+      packagePath: path.resolve(process.cwd(), "./package.json")
+    })]
   });
 });
