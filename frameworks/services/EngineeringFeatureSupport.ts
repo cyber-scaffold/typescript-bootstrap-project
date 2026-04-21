@@ -1,11 +1,12 @@
 import path from "path";
+import { SyntaxKind } from "ts-morph";
 import { injectable, inject } from "inversify";
 
 import { IOCContainer } from "@@/frameworks/cores/IOCContainer";
 import { FrameworkBasicConfig } from "@@/frameworks/commons/FrameworkBasicConfig";
 import { computedRelativePath } from "@@/frameworks/utils/computedRelativePath";
 
-import type { SourceFile } from "ts-morph";
+import type { SourceFile, ImportDeclaration } from "ts-morph";
 
 /**
  * 工程化特性支持类
@@ -50,12 +51,16 @@ export class EngineeringFeatureSupport {
 
   /**
    * 增加运行时的esm模块导入支持
+   * 引入esbuild-register的polyfill
    * **/
   public additionRuntimeESModuleSupport(everySourceFile: SourceFile) {
     const sourceCodeFileFullPath = everySourceFile.getFilePath();
     const indexSourceCodeFileFullPath = path.resolve(process.cwd(), "./src/index.ts");
     if (sourceCodeFileFullPath === indexSourceCodeFileFullPath) {
-      everySourceFile.insertStatements(0, [`require("esbuild-register");`].join("\n"));
+      // 找到真正的第一个语句在第一个语句后门进行esbuild-register的polyfill引入
+      const statements = everySourceFile.getStatements();
+      const firstPosition = statements[0].getStart();
+      everySourceFile.insertText(firstPosition, `require("esbuild-register");`);
     };
   };
 
