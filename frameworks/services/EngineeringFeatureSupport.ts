@@ -52,7 +52,11 @@ export class EngineeringFeatureSupport {
    * 增加运行时的esm模块导入支持
    * **/
   public additionRuntimeESModuleSupport(everySourceFile: SourceFile) {
-    everySourceFile.insertStatements(0, [`require("esbuild-register");`].join("\n"));
+    const sourceCodeFileFullPath = everySourceFile.getFilePath();
+    const indexSourceCodeFileFullPath = path.resolve(process.cwd(), "./src/index.ts");
+    if (sourceCodeFileFullPath === indexSourceCodeFileFullPath) {
+      everySourceFile.insertStatements(0, [`require("esbuild-register");`].join("\n"));
+    };
   };
 
 };
