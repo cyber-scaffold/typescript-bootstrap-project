@@ -1,15 +1,15 @@
 import { injectable, inject } from "inversify";
 import { createConnection, Connection } from "mongoose";
 
+import { IOCContainer } from "@/cores/IOCContainer";
 import { ApplicationConfigManager } from "@/commons/Application/ApplicationConfigManager";
-import { IOCContainer } from "@/commons/Application/IOCContainer";
 
 @injectable()
 export class MongooseConnectManager {
 
   private connection: Connection;
 
-  constructor(
+  constructor (
     @inject(ApplicationConfigManager) private readonly $ApplicationConfigManager: ApplicationConfigManager
   ) { };
 

@@ -1,4 +1,4 @@
-import { IOCContainer } from "@/commons/Application/IOCContainer";
+import { IOCContainer } from "@/cores/IOCContainer";
 
 import { ApplicationMain } from "@/commons/Application/ApplicationMain";
 import { MainControllerProcess } from "@/controllers/MainController";

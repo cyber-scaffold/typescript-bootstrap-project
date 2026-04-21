@@ -1,8 +1,9 @@
 import { DataSource } from "typeorm";
 import { injectable, inject } from "inversify";
 
+import { IOCContainer } from "@/cores/IOCContainer";
+
 import { ApplicationConfigManager } from "@/commons/Application/ApplicationConfigManager";
-import { IOCContainer } from "@/commons/Application/IOCContainer";
 import { logger } from "@/utils/logger";
 
 /** 很多分库分表都是在应用层完成的,一般都是根据数据库名进行区分 **/
@@ -12,7 +13,7 @@ export class DataSourceManager {
   /** DataSource对象的暂存池 **/
   private appDataSource: DataSource;
 
-  constructor(
+  constructor (
     @inject(ApplicationConfigManager) private readonly $ApplicationConfigManager: ApplicationConfigManager
   ) { };
 

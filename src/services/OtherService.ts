@@ -1,12 +1,12 @@
 import { injectable, inject } from "inversify";
 
-import { IOCContainer } from "@/commons/Application/IOCContainer";
+import { IOCContainer } from "@/cores/IOCContainer";
 import { SessionInfoService } from "@/services/SessionInfoService";
 
 @injectable()
 export class OtherService {
 
-  constructor(
+  constructor (
     @inject(SessionInfoService) private readonly sessionInfoService: SessionInfoService
   ) { };
 

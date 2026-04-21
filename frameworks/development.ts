@@ -1,21 +1,28 @@
-import fs from "fs";
 import path from "path";
-import esbuild from "esbuild";
-import { promisify } from "util";
-import { nodeExternalsPlugin } from "esbuild-node-externals";
+import nodemon from "nodemon";
+import { IOCContainer } from "@@/frameworks/cores/IOCContainer";
+import { FrameworkBasicConfig } from "@@/frameworks/commons/FrameworkBasicConfig";
+
+import { ClearDirectory } from "@@/frameworks/actions/ClearDirectory";
+import { GenerateDeclaration } from "@@/frameworks/actions/GenerateDeclaration";
+import { TransformSourceCode } from "@@/frameworks/actions/TransformSourceCode";
 
 setImmediate(async () => {
-  await promisify(fs.rm)(path.resolve(process.cwd(), "./dist/"), { recursive: true, force: true });
-  await promisify(fs.rm)(path.resolve(process.cwd(), "./types/"), { recursive: true, force: true });
-  await esbuild.build({
-    entryPoints: [path.resolve(process.cwd(), "./src/index.ts")],
-    bundle: true,
-    format: "cjs",
-    platform: "node",
-    outdir: path.resolve(process.cwd(), "./dist/"),
-    plugins: [nodeExternalsPlugin({
-      packagePath: path.resolve(process.cwd(), "./package.json")
-    })]
+  await IOCContainer.get(FrameworkBasicConfig).initialize();
+  await IOCContainer.get(ClearDirectory).execute();
+
+  const $TransformSourceCode = IOCContainer.get(TransformSourceCode);
+  await $TransformSourceCode.initialize();
+  await $TransformSourceCode.processEverySourceCodeFile();
+  await $TransformSourceCode.complateAndGenerate();
+
+  const $GenerateDeclaration = IOCContainer.get(GenerateDeclaration);
+  await $GenerateDeclaration.initialize();
+  await $GenerateDeclaration.processEverySourceCodeFile();
+  await $GenerateDeclaration.complateAndGenerate();
+  nodemon({
+    verbose: true,
+    watch: [path.resolve(process.cwd(), "./dist/**/*")],
+    scirpt: path.resolve(process.cwd(), "./dist/index.js")
   });
-  require("../dist/index.js");
 });

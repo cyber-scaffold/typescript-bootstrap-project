@@ -1,6 +1,6 @@
 import { injectable, inject } from "inversify";
 
-import { IOCContainer } from "@/commons/Application/IOCContainer";
+import { IOCContainer } from "@/cores/IOCContainer";
 
 import { ApplicationConfigManager } from "@/commons/Application/ApplicationConfigManager";
 import { LimitedRabbitmqProducer } from "@/commons/RabbitMQ/LimitedRabbitmqProducer";
@@ -14,7 +14,7 @@ import { RedisConnectManager } from "@/commons/Redis/RedisConnectManager";
 @injectable()
 export class ApplicationMain {
 
-  constructor(
+  constructor (
     @inject(ApplicationConfigManager) private readonly $ApplicationConfigManager: ApplicationConfigManager,
     @inject(LimitedRabbitmqProducer) private readonly $LimitedRabbitmqProducer: LimitedRabbitmqProducer,
     @inject(LimitedRabbitmqConsumer) private readonly $LimitedRabbitmqConsumer: LimitedRabbitmqConsumer,

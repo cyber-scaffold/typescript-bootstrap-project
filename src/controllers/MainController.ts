@@ -1,6 +1,6 @@
 import { injectable, inject } from "inversify";
 
-import { IOCContainer } from "@/commons/Application/IOCContainer";
+import { IOCContainer } from "@/cores/IOCContainer";
 // import { ApplicationConfigManager } from "@/commons/Application/ApplicationConfigManager";
 // import { RedisConnectManager } from "@/commons/Redis/RedisConnectManager";
 // import { QueryBuilderManager } from "@/commons/MySQL/QueryBuilderManager";
@@ -12,7 +12,7 @@ import { TransientFactoryServiceFactory, TransientFactoryServiceProvider } from 
 @injectable()
 export class MainControllerProcess {
 
-  constructor(
+  constructor (
     // @inject(ApplicationConfigManager) private readonly applicationConfigManager: ApplicationConfigManager,
     // @inject(RedisConnectManager) private readonly redisConnectManager: RedisConnectManager,
     // @inject(QueryBuilderManager) private readonly queryBuilderManager: QueryBuilderManager,
