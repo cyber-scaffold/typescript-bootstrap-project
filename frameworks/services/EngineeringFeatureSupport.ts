@@ -40,7 +40,7 @@ export class EngineeringFeatureSupport {
       };
       /** 与上述过程同理,只是换成了处理 @@ 这个指向根目录的alias **/
       if (importPackageAliasPath.startsWith("@@")) {
-        const importPackageFullPath = importPackageAliasPath.replace("@@", sourceCodeDirectoryPath);
+        const importPackageFullPath = importPackageAliasPath.replace("@@", projectDirectory);
         const sourceCodeFileFullPath = everySourceFile.getFilePath();
         const relativePath = computedRelativePath(sourceCodeFileFullPath, importPackageFullPath);
         importPackagePath.setModuleSpecifier(relativePath);

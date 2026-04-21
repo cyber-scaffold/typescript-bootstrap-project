@@ -1,5 +1,4 @@
 import path from "path";
-import nodemon from "nodemon";
 import { IOCContainer } from "@@/frameworks/cores/IOCContainer";
 import { FrameworkBasicConfig } from "@@/frameworks/commons/FrameworkBasicConfig";
 
@@ -20,9 +19,5 @@ setImmediate(async () => {
   await $GenerateDeclaration.initialize();
   await $GenerateDeclaration.processEverySourceCodeFile();
   await $GenerateDeclaration.complateAndGenerate();
-  nodemon({
-    verbose: true,
-    watch: [path.resolve(process.cwd(), "./dist/**/*")],
-    scirpt: path.resolve(process.cwd(), "./dist/index.js")
-  });
+  await import(path.resolve(process.cwd(), "./dist/index.js"));
 });
