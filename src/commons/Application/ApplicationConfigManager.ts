@@ -12,10 +12,6 @@ export class ApplicationConfigManager {
 
   /** 应用层内置的默认配置 **/
   private defaultConfig: any = {
-    docs: false,
-    server: {
-      port: 15200
-    },
     redis: {
       port: 6379,
       host: "0.0.0.0",

@@ -3,12 +3,12 @@ import { injectable, inject } from "inversify";
 import { IOCContainer } from "@/cores/IOCContainer";
 
 import { ApplicationConfigManager } from "@/commons/Application/ApplicationConfigManager";
-import { LimitedRabbitmqProducer } from "@/commons/RabbitMQ/LimitedRabbitmqProducer";
-import { LimitedRabbitmqConsumer } from "@/commons/RabbitMQ/LimitedRabbitmqConsumer";
-import { MongooseConnectManager } from "@/commons/MongoDB/MongooseConnectManager";
-import { MySQLConnectManager } from "@/commons/MySQL/MySQLConnectManager";
-import { QueryBuilderManager } from "@/commons/MySQL/QueryBuilderManager";
-import { RedisConnectManager } from "@/commons/Redis/RedisConnectManager";
+import { LimitedRabbitmqProducer } from "@/commons/Components/RabbitMQ/LimitedRabbitmqProducer";
+import { LimitedRabbitmqConsumer } from "@/commons/Components/RabbitMQ/LimitedRabbitmqConsumer";
+import { MongooseConnectManager } from "@/commons/Components/MongoDB/MongooseConnectManager";
+import { MySQLConnectManager } from "@/commons/Components/MySQL/MySQLConnectManager";
+import { QueryBuilderManager } from "@/commons/Components/MySQL/QueryBuilderManager";
+import { RedisConnectManager } from "@/commons/Components/Redis/RedisConnectManager";
 
 
 @injectable()
