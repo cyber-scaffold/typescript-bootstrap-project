@@ -1,13 +1,17 @@
-import knex, { Knex } from "knex";
+import knex from "knex";
 import { injectable, inject } from "inversify";
 
-import { IOCContainer } from "@/cores/IOCContainer";
 import { ApplicationConfigManager } from "@/commons/Application/ApplicationConfigManager";
+import { IOCContainer } from "@/cores/IOCContainer";
+
+import { logger } from "@/utils/logger";
+
+import type { Knex } from "knex";
 
 @injectable()
 export class QueryBuilderManager {
 
-  private _knexQueryBuilder: Knex;
+  private knexQueryBuilder: Knex;
 
   constructor (
     @inject(ApplicationConfigManager) private readonly $ApplicationConfigManager: ApplicationConfigManager
@@ -15,8 +19,8 @@ export class QueryBuilderManager {
 
   /** 初始化knex**/
   public async initialize() {
-    const { mysql } = this.$ApplicationConfigManager.getRuntimeConfig();
-    this._knexQueryBuilder = knex({
+    const { mysql } = await this.$ApplicationConfigManager.getRuntimeConfig();
+    this.knexQueryBuilder = knex({
       client: "mysql2",
       connection: {
         host: mysql.host,
@@ -26,12 +30,12 @@ export class QueryBuilderManager {
         database: mysql.database
       }
     });
-    console.log("knex数据访问层初始化成功!");
+    logger.info("Knex 查询构建器!");
   };
 
   /** 根据数据库名称获取knex的QueryBuilder **/
   public async getQueryBuilder(): Promise<Knex> {
-    return this._knexQueryBuilder;
+    return this.knexQueryBuilder;
   };
 
 };

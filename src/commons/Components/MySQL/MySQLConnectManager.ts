@@ -1,8 +1,12 @@
+import { createPool } from "mysql2/promise";
 import { injectable, inject } from "inversify";
-import { createPool, Pool, PoolConnection } from "mysql2/promise";
 
-import { IOCContainer } from "@/cores/IOCContainer";
 import { ApplicationConfigManager } from "@/commons/Application/ApplicationConfigManager";
+import { IOCContainer } from "@/cores/IOCContainer";
+
+import { logger } from "@/utils/logger";
+
+import type { Pool, PoolConnection } from "mysql2/promise";
 
 @injectable()
 export class MySQLConnectManager {
@@ -17,7 +21,7 @@ export class MySQLConnectManager {
 
   /** 初始化连接 **/
   public async initialize(): Promise<void> {
-    const { mysql } = this.$ApplicationConfigManager.getRuntimeConfig();
+    const { mysql } = await this.$ApplicationConfigManager.getRuntimeConfig();
     this.pool = createPool({
       host: mysql.host,
       port: mysql.port,
@@ -26,7 +30,7 @@ export class MySQLConnectManager {
       connectionLimit: 0
     });
     this.connection = await this.pool.getConnection();
-    console.log("MySQL连接池初始化成功!");
+    logger.info("MySQL 连接池初始化成功!");
   };
 
   /** 获取MySQL主连接 **/

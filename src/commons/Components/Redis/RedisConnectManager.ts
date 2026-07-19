@@ -1,8 +1,12 @@
+import { createClient } from "redis";
 import { injectable, inject } from "inversify";
-import { createClient, RedisClientType } from "redis";
 
-import { IOCContainer } from "@/cores/IOCContainer";
 import { ApplicationConfigManager } from "@/commons/Application/ApplicationConfigManager";
+import { IOCContainer } from "@/cores/IOCContainer";
+
+import { logger } from "@/utils/logger";
+
+import { RedisClientType } from "redis";
 
 @injectable()
 export class RedisConnectManager {
@@ -15,7 +19,7 @@ export class RedisConnectManager {
 
   /** 初始化Redis连接 **/
   public async initialize(): Promise<void> {
-    const { redis } = this.$ApplicationConfigManager.getRuntimeConfig();
+    const { redis } = await this.$ApplicationConfigManager.getRuntimeConfig();
     try {
       this.connection = createClient({
         url: `redis://${redis.host}:${redis.port}`,
@@ -23,13 +27,13 @@ export class RedisConnectManager {
       });
 
       this.connection.on("error", async (error) => {
-        console.log("Redis出现错误,2s后重新连接... ...", error);
+        logger.error("Redis 出现错误,2s后重新连接... ...", error);
         return setTimeout(this.initialize, 2000);
       });
 
       await this.connection.connect();
 
-      console.log("Redis连接成功!");
+      logger.info("Redis 连接成功!");
     } catch (error: any) {
       this.connection.removeAllListeners("error");
       throw error;
