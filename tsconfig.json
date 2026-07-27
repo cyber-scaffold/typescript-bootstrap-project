@@ -1,4 +1,11 @@
 {
+  "ts-node": {
+    "transpileOnly": true,
+    "require": [
+      "tsconfig-paths/register",
+      "typescript-transform-paths/register"
+    ]
+  },
   "compilerOptions": {
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
