@@ -9,13 +9,20 @@ setImmediate(async () => {
   await IOCContainer.get(FrameworkBasicConfig).initialize();
   await IOCContainer.get(ClearDirectory).execute();
 
-  const $TransformSourceCode = IOCContainer.get(TransformSourceCode);
-  await $TransformSourceCode.initialize();
-  await $TransformSourceCode.processEverySourceCodeFile();
-  await $TransformSourceCode.complateAndGenerate();
+  async function TransformTask() {
+    const $TransformSourceCode = IOCContainer.get(TransformSourceCode);
+    await $TransformSourceCode.initialize();
+    await $TransformSourceCode.processEverySourceCodeFile();
+    await $TransformSourceCode.complateAndGenerate();
+  };
 
-  const $GenerateDeclaration = IOCContainer.get(GenerateDeclaration);
-  await $GenerateDeclaration.initialize();
-  await $GenerateDeclaration.processEverySourceCodeFile();
-  await $GenerateDeclaration.complateAndGenerate();
+  async function DeclarationTask() {
+    const $GenerateDeclaration = IOCContainer.get(GenerateDeclaration);
+    await $GenerateDeclaration.initialize();
+    await $GenerateDeclaration.processEverySourceCodeFile();
+    await $GenerateDeclaration.complateAndGenerate();
+  };
+
+  await Promise.all([TransformTask(), DeclarationTask()]);
+
 });
