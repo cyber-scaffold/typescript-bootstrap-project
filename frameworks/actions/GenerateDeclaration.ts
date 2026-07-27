@@ -38,7 +38,7 @@ export class GenerateDeclaration {
     /** 处理每一个源代码文件 **/
     await Promise.all(sourceFiles.map(async (everySourceFile) => {
       this.$EngineeringFeatureSupport.replaceImportAliasToRelativePath(everySourceFile);
-      this.$EngineeringFeatureSupport.additionRuntimeESModuleSupport(everySourceFile);
+      // this.$EngineeringFeatureSupport.additionRuntimeESModuleSupport(everySourceFile);
     }));
   };
 
