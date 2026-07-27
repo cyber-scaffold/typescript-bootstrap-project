@@ -23,7 +23,7 @@ export const logger = createLogger({
       frequency: "1d",
       level: "error",
       extension: ".log",
-      dirname: path.resolve(__dirname, "./logs/"),
+      dirname: path.resolve(process.cwd(), "./dist/logs/"),
       datePattern: "YYYY-MM-DD-HH-mm-ss",
       filename: "logger",
       maxSize: "10m",
